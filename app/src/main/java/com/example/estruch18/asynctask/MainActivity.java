@@ -50,6 +50,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle guardarEstado) {
+        super.onSaveInstanceState(guardarEstado);
+        guardarEstado.putString("estado", estado.getText().toString());
+        guardarEstado.putString("progreso", progreso.getText().toString());
+        guardarEstado.getInt("progreso_barra", barraProgreso.getProgress());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle recuperarEstado) {
+        super.onRestoreInstanceState(recuperarEstado);
+        String estadoStr = recuperarEstado.getString("estado");
+        String progresoStr = recuperarEstado.getString("progreso");
+        int progresoBarra = recuperarEstado.getInt("progreso_barra");
+
+        estado.setText(estadoStr);
+        progreso.setText(progresoStr);
+        barraProgreso.setProgress(progresoBarra);
+    }
+
     public void declaracionViews(){
         estado = (TextView)findViewById(R.id.tvEstado);
         progreso = (TextView)findViewById(R.id.tvProgreso);
